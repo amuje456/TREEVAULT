@@ -52,6 +52,26 @@ Open `http://localhost:3000`.
 ```bash
 npx --yes tsx --test src/utils/treeLayout.test.ts
 ```
+Project Discription:-
+# TREEVAULT – Binary Tree Archiving & Recovery System
+
+TREEVAULT is a web-based application designed to preserve and reconstruct binary tree structures without losing their original relationships.
+
+- Implements Binary Trees using C++ and core Data Structures & Algorithms.
+- Uses Preorder Traversal with explicit null markers for lossless serialization.
+- Converts binary trees into a structured, human-readable text archive.
+- Reconstructs the original tree from the archived text using deserialization.
+- Preserves left/right child relationships and missing branches.
+- Provides interactive binary tree construction and visual representation.
+- Displays original and restored trees side by side for comparison.
+- Performs Preorder and Inorder traversal comparisons.
+- Verifies tree integrity through structural equality checking.
+- Detects malformed, incomplete, or corrupted archive data.
+
+Built to demonstrate efficient tree serialization, deserialization, data integrity, and practical DSA implementation through an interactive visual experience.
+
+PROJECT LINK:-
+https://treevault.ai.studio
 
 ## Documentation
 
