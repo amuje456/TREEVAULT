@@ -1,0 +1,1263 @@
+# PROJECT: TREEVAULT
+## Binary Tree Archiving & Recovery System
+### FLASH HACK 3.0 – Data Structures & Algorithms Hackathon
+
+---
+
+# 1. YOUR ROLE
+
+Act as a complete senior software development team consisting of:
+
+1. Senior DSA Architect.
+2. Expert C++ Developer.
+3. Senior React Frontend Developer.
+4. UI/UX Designer.
+5. Backend Engineer.
+6. Software Integration Engineer.
+7. QA and Testing Engineer.
+8. Technical Documentation Specialist.
+9. Hackathon Presentation Mentor.
+
+Your responsibility is to design, develop, test and deliver a complete, professional, functional web application that solves the problem statement provided below.
+
+Do not merely generate a prototype or static UI.
+
+Build an actual working application with genuine C++ Data Structures and Algorithms implementation, a functional frontend, reliable backend communication, interactive tree visualization, and complete verification capabilities.
+
+The application must be suitable for a second-year Computer Science Engineering DSA hackathon.
+
+---
+
+# 2. OFFICIAL PROBLEM STATEMENT
+
+PROBLEM STATEMENT 05
+
+TITLE: The Museum's Vanishing Family Trees
+
+PROBLEM DOMAIN:
+Binary Trees and Structured Data Recovery.
+
+A museum maintains a tree of historical relationships. Some exported records reopen with descendants attached to the wrong branch because the old format fails to preserve empty positions.
+
+The museum must move these records between computers without changing their meaning.
+
+Develop a Tree Archiving and Recovery System that saves a binary tree and reconstructs the same tree later from the saved text alone.
+
+FUNCTIONAL REQUIREMENTS:
+
+The system must support:
+
+1. Accept or construct a binary tree of labeled nodes.
+2. Export the tree into a documented text format and restore it from that format.
+3. Preserve which branches are absent, including left-only and right-only children.
+4. Show the original and restored structures as indented trees or other readable views.
+5. Report preorder and inorder traversals for comparison.
+6. Detect malformed or incomplete export data and explain the error.
+
+ILLUSTRATIVE EXAMPLE:
+
+Original tree:
+
+          A
+         / \
+        B   C
+         \
+          D
+
+Expected after restoration:
+
+Preorder: [A, B, D, C]
+
+Inorder: [B, D, A, C]
+
+All original parent-child relationships and missing branches must be preserved.
+
+EXPECTED DELIVERABLES:
+
+1. Tree import/creation and export/restore tool.
+2. Documented lossless serialization format.
+3. Before/after tree and traversal display.
+4. Round-trip and damaged-input tests.
+
+DEMONSTRATION REQUIREMENTS:
+
+1. Export an unseen tree.
+2. Clear the original in-memory tree object.
+3. Restore the tree using only the saved text.
+4. Verify that its shape is identical.
+5. Show one damaged export that is rejected.
+
+SCOPE AND LIMITS:
+
+- Maximum 2,000 nodes.
+- Short node labels.
+- ASCII or graphical tree visualization is acceptable.
+- No requirement to parse arbitrary XML or JSON documents.
+
+Treat these requirements as mandatory acceptance criteria.
+
+Do not omit any of them.
+
+---
+
+# 3. PRIMARY OBJECTIVE
+
+Build TREEVAULT.
+
+TAGLINE:
+
+"Preserve Every Branch. Recover Every Connection."
+
+The application must provide an intuitive interface through which users can:
+
+- Construct binary trees.
+- Import tree data.
+- Visualize tree structures.
+- Serialize trees.
+- Download archived text.
+- Upload archived text.
+- Deserialize trees.
+- Compare original and restored structures.
+- Examine traversal results.
+- Detect corrupted or incomplete archives.
+- Understand how the underlying DSA algorithms work.
+
+The final application should look like a professional software product, not a basic student assignment.
+
+However, technical correctness and actual DSA implementation are more important than unnecessary visual complexity.
+
+---
+
+# 4. INTELLIGENT DSA SELECTION AND ALGORITHM DESIGN
+
+Before writing code, analyse the problem and select the most appropriate data structures and algorithms.
+
+Do not blindly use every DSA concept.
+
+Evaluate the relevance of:
+
+- Binary Trees.
+- Recursive Traversal.
+- Preorder Traversal.
+- Inorder Traversal.
+- Postorder Traversal.
+- Level Order Traversal.
+- Queues.
+- Stacks.
+- Tree Reconstruction.
+- Structural Equality Checking.
+
+Select the simplest and most efficient combination.
+
+RECOMMENDED PRIMARY APPROACH:
+
+Binary Tree + Preorder Serialization + Explicit Null Markers + Recursive Deserialization.
+
+Explain why this approach is suitable.
+
+SERIALIZATION:
+
+Use preorder traversal:
+
+Root → Left → Right.
+
+Whenever a child is missing, store an explicit null marker.
+
+Example:
+
+Original:
+
+          A
+         / \
+        B   C
+         \
+          D
+
+Serialized token sequence:
+
+A, B, N, D, N, N, C, N, N
+
+The null markers are essential.
+
+They preserve the exact positions of absent children.
+
+DESERIALIZATION:
+
+Read the tokens in preorder.
+
+If the token represents NULL, return an empty child.
+
+Otherwise:
+
+1. Create a node.
+2. Recursively reconstruct its left child.
+3. Recursively reconstruct its right child.
+4. Return the reconstructed node.
+
+VERIFICATION:
+
+Implement:
+
+- Preorder traversal.
+- Inorder traversal.
+- Recursive structural equality comparison.
+
+IMPORTANT:
+
+Matching traversal outputs alone must not be treated as sufficient proof of structural equality.
+
+Implement a genuine recursive comparison that checks:
+
+- Whether both corresponding nodes are NULL.
+- Whether both corresponding nodes exist.
+- Whether their labels match.
+- Whether their left subtrees match.
+- Whether their right subtrees match.
+
+Only declare the tree identical when the complete structure matches.
+
+---
+
+# 5. C++ IMPLEMENTATION – HIGHEST PRIORITY
+
+C++ MUST be the primary language for all core DSA operations.
+
+Do not replace the actual DSA implementation with JavaScript or frontend-side calculations.
+
+Implement the following in C++:
+
+1. Binary tree node structure.
+2. Tree construction.
+3. Tree insertion at a specified left/right position.
+4. Tree deletion with clearly defined behaviour.
+5. Preorder serialization.
+6. Recursive deserialization.
+7. Preorder traversal.
+8. Inorder traversal.
+9. Postorder traversal, if useful.
+10. Level-order traversal, if useful.
+11. Node count.
+12. Tree height.
+13. Leaf node count.
+14. Structural equality checking.
+15. Archive validation.
+16. Detailed error reporting.
+
+Use appropriate C++ memory management.
+
+Prefer smart pointers or another clearly justified ownership strategy.
+
+Avoid memory leaks and dangling pointers.
+
+Support up to 2,000 nodes.
+
+Consider recursion depth and malformed input carefully.
+
+Keep the implementation modular.
+
+Suggested organization:
+
+cpp-engine/
+    main.cpp
+    BinaryTree.h
+    BinaryTree.cpp
+    Serializer.h
+    Serializer.cpp
+    Validator.h
+    Validator.cpp
+
+You may adjust this structure when technically justified.
+
+Do not unnecessarily complicate the code.
+
+---
+
+# 6. DESIGN A DOCUMENTED LOSSLESS ARCHIVE FORMAT
+
+Create a custom, versioned, human-readable text format.
+
+Suggested format:
+
+TREEVAULT_V1
+TOKENS: 9
+
+V:A
+V:B
+N
+V:D
+N
+N
+V:C
+N
+N
+
+FORMAT RULES:
+
+- TREEVAULT_V1 identifies the archive format version.
+- TOKENS specifies the number of serialized tokens.
+- V: indicates a node value.
+- N indicates a missing child.
+- Every token occupies a separate line.
+- Everything after the V: prefix is the node label.
+- Labels must be non-empty and must not contain newline characters.
+
+The format must preserve labels and tree shape.
+
+Define and document:
+
+- Header validation.
+- Token count validation.
+- Node token validation.
+- Null marker handling.
+- Empty label handling.
+- Incomplete input handling.
+- Extra token handling.
+- Unsupported version handling.
+
+An archive must be rejected if it is malformed or incomplete.
+
+Do not silently restore a partial tree.
+
+Do not confuse a legitimate node label with the null marker.
+
+Implement transactional restoration: if validation or reconstruction fails, do not expose a partially reconstructed tree as a successful result.
+
+The archive must be sufficient to reconstruct the tree without access to the original in-memory object.
+
+An empty tree must also have a well-defined representation.
+
+---
+
+# 7. FRONTEND – PREMIUM UI/UX DEVELOPMENT
+
+Build a visually impressive, modern and responsive web application.
+
+TECH STACK:
+
+- React.js.
+- JavaScript or TypeScript.
+- Tailwind CSS.
+- Shadcn/UI.
+- Lucide React.
+- Framer Motion.
+- Custom SVG tree visualization.
+
+DESIGN DIRECTION:
+
+Create a professional developer-tool/dashboard aesthetic.
+
+Suggested theme:
+
+- Deep navy.
+- Royal blue.
+- White.
+- Subtle cyan accents.
+- Carefully used green for successful verification.
+- Red/orange for errors.
+
+Use:
+- Modern typography.
+- Consistent spacing.
+- Professional cards.
+- Subtle shadows.
+- Rounded components.
+- Smooth transitions.
+- Clear visual hierarchy.
+- Responsive layouts.
+
+Avoid excessive gradients, unnecessary animations and clutter.
+
+The application should feel like a real software product.
+
+APPLICATION NAME:
+
+TREEVAULT
+
+TAGLINE:
+
+Preserve Every Branch. Recover Every Connection.
+
+Create a polished landing/dashboard experience with a clear primary action.
+
+---
+
+# 8. REQUIRED APPLICATION MODULES
+
+## MODULE 1: DASHBOARD
+
+Create an attractive main dashboard.
+
+Display:
+
+- Application name.
+- Short application description.
+- Total nodes.
+- Tree height.
+- Number of leaf nodes.
+- Current archive status.
+- Last operation.
+- Quick access to tree creation, export and restore.
+
+Provide a clear workflow.
+
+## MODULE 2: TREE CONSTRUCTION
+
+Allow users to create binary trees interactively.
+
+Provide:
+
+- Add root.
+- Add left child.
+- Add right child.
+- Delete node.
+- Edit node label.
+- Reset tree.
+
+The interface must make it clear which parent node is selected and whether the user is adding a left or right child.
+
+Prevent invalid operations.
+
+Also provide a sample tree option for quick demonstration.
+
+Support importing an existing tree representation through a documented input method.
+
+## MODULE 3: LIVE BINARY TREE VISUALIZATION
+
+THIS IS A MAJOR REQUIREMENT.
+
+Display the binary tree graphically using SVG or another suitable visualization technique.
+
+Example:
+
+              A
+             / \
+            B   C
+             \
+              D
+
+Requirements:
+
+- Display every node clearly.
+- Draw parent-child connections.
+- Distinguish left and right relationships.
+- Preserve missing branches.
+- Support larger trees.
+- Prevent overlapping nodes where reasonably possible.
+- Allow zooming or scrolling when necessary.
+- Highlight selected nodes.
+- Highlight nodes during traversal.
+- Provide a readable empty-tree state.
+
+The visualization must be generated from actual tree data.
+
+Do not hardcode the example tree.
+
+For larger trees, implement an appropriate layout strategy.
+
+## MODULE 4: SERIALIZATION / EXPORT
+
+Create a dedicated export section.
+
+When the user clicks EXPORT TREE:
+
+1. Send the current tree to the C++ engine.
+2. Execute actual preorder serialization.
+3. Generate the documented archive text.
+4. Display the generated archive.
+5. Display the token count.
+6. Display node count.
+7. Provide COPY functionality.
+8. Provide DOWNLOAD functionality.
+
+Use an appropriate plain-text file extension, such as .treevault.
+
+Include a short explanation of the generated format.
+
+## MODULE 5: STEP-BY-STEP SERIALIZATION VISUALIZATION
+
+This is an important feature for explaining the DSA to judges.
+
+Provide an animation or step-by-step execution panel.
+
+Show:
+
+- Current node.
+- Current traversal operation.
+- Whether a node or null marker is being processed.
+- Current serialized token.
+- Current archive state.
+
+Example:
+
+Step 1: Visit A.
+Step 2: Visit B.
+Step 3: B's left child is NULL.
+Step 4: Visit D.
+Step 5: D's left child is NULL.
+
+Highlight the corresponding node or missing branch in the visualization.
+
+Provide:
+
+- Play.
+- Pause.
+- Next step.
+- Previous step.
+- Reset.
+
+The animation must reflect the actual C++ algorithm execution.
+
+Do not generate fake traversal sequences independently in React.
+
+## MODULE 6: RESTORE / DESERIALIZATION
+
+Create an archive restoration workspace.
+
+Allow users to:
+
+- Paste archived text.
+- Upload a .treevault file.
+- Inspect the archive.
+- Validate the archive.
+- Restore the tree.
+
+When RESTORE is clicked:
+
+1. Submit the archive text to the backend.
+2. Invoke the actual C++ deserialization engine.
+3. Validate the complete archive.
+4. Reconstruct the binary tree.
+5. Return the restored structure.
+6. Display the restored tree visually.
+
+If the archive is invalid, show a clear and meaningful explanation.
+
+Do not display a successfully restored tree when reconstruction fails.
+
+## MODULE 7: BEFORE/AFTER COMPARISON
+
+Display two tree visualizations side by side.
+
+LEFT:
+Original tree.
+
+RIGHT:
+Restored tree.
+
+Provide:
+
+- Node count comparison.
+- Tree height comparison.
+- Preorder comparison.
+- Inorder comparison.
+- Structural equality result.
+
+Highlight any mismatched node or branch when comparison fails.
+
+Display a prominent result:
+
+TREE STRUCTURE IDENTICAL ✓
+
+or
+
+TREE STRUCTURE MISMATCH ✕
+
+The result must come from the actual C++ comparison algorithm.
+
+## MODULE 8: TRAVERSAL ANALYSIS
+
+Show the following:
+
+PREORDER:
+Root → Left → Right.
+
+INORDER:
+Left → Root → Right.
+
+POSTORDER:
+Left → Right → Root.
+
+Display the results in a clean visual format.
+
+Preorder and inorder comparisons are mandatory.
+
+Postorder is an additional educational feature.
+
+Explain how these traversal methods work.
+
+## MODULE 9: ARCHIVE DAMAGE DETECTION
+
+Create a dedicated section for testing damaged archives.
+
+Provide a sample damaged archive.
+
+Examples of invalid inputs:
+
+- Missing tokens.
+- Extra tokens.
+- Invalid header.
+- Unsupported version.
+- Empty node labels.
+- Invalid token prefixes.
+- Incomplete tree structure.
+
+Display:
+
+RESTORATION FAILED.
+
+Then explain:
+
+- What went wrong.
+- Which validation rule failed.
+- Expected token count.
+- Received token count, where applicable.
+- Whether reconstruction was prevented.
+
+Do not just show a generic error.
+
+## MODULE 10: TREE INTEGRITY REPORT
+
+After a successful round trip, display a professional verification report.
+
+Include:
+
+- Original node count.
+- Restored node count.
+- Original height.
+- Restored height.
+- Original preorder.
+- Restored preorder.
+- Original inorder.
+- Restored inorder.
+- Structural equality.
+- Archive validation status.
+
+Display a final result:
+
+TREEVAULT INTEGRITY CHECK: PASSED.
+
+This must be based on actual algorithm execution.
+
+---
+
+# 9. CRITICAL DEMONSTRATION WORKFLOW
+
+The application MUST support the exact demonstration required by the problem statement.
+
+Implement a dedicated ROUND-TRIP DEMONSTRATION mode.
+
+The workflow:
+
+STEP 1:
+
+Construct or generate an unseen binary tree.
+
+STEP 2:
+
+Display the original tree.
+
+STEP 3:
+
+Export the tree into TREEVAULT text format.
+
+STEP 4:
+
+Display the complete archive text.
+
+STEP 5:
+
+CLEAR THE ORIGINAL IN-MEMORY TREE OBJECT.
+
+This is mandatory.
+
+Do not merely hide the original tree visually.
+
+Actually destroy or release the original tree object on the backend.
+
+STEP 6:
+
+Keep only the serialized archive text.
+
+STEP 7:
+
+Restore a completely new tree using ONLY the archived text.
+
+STEP 8:
+
+Display the restored tree.
+
+STEP 9:
+
+Calculate preorder and inorder traversals.
+
+STEP 10:
+
+Perform recursive structural equality verification.
+
+STEP 11:
+
+Display the verification report.
+
+IMPORTANT:
+
+Ensure that the original tree is not secretly reused during restoration.
+
+The restored tree must be independently reconstructed from the saved text alone.
+
+Also provide a DAMAGED ARCHIVE DEMONSTRATION.
+
+Modify or truncate an archive.
+
+Attempt restoration.
+
+Show that the application rejects it and explains the reason.
+
+This demonstration is essential for the judges.
+
+---
+
+# 10. BACKEND AND C++ INTEGRATION
+
+Use a lightweight backend.
+
+RECOMMENDED:
+
+Node.js + Express + REST API.
+
+The backend must communicate with the compiled C++ engine.
+
+The frontend must not independently perform the core DSA operations.
+
+Architecture:
+
+USER
+  |
+  v
+REACT FRONTEND
+  |
+  v
+NODE.JS BACKEND
+  |
+  v
+C++ DSA ENGINE
+  |
+  +-- Binary Tree Construction
+  |
+  +-- Serialization
+  |
+  +-- Deserialization
+  |
+  +-- Traversals
+  |
+  +-- Structural Comparison
+  |
+  +-- Archive Validation
+  |
+  v
+JSON RESPONSE
+  |
+  v
+REACT VISUALIZATION
+
+Define clean API contracts.
+
+Suggested endpoints:
+
+POST /api/tree/create
+
+POST /api/tree/serialize
+
+POST /api/tree/restore
+
+POST /api/tree/verify
+
+POST /api/tree/clear
+
+POST /api/tree/demo
+
+GET /api/health
+
+You may adjust the endpoints if a better architecture is justified.
+
+Requirements:
+
+- Validate incoming requests.
+- Use JSON communication.
+- Handle C++ execution errors.
+- Handle timeouts.
+- Configure CORS.
+- Return meaningful HTTP status codes.
+- Avoid unsafe shell command construction.
+- Keep the backend modular.
+
+The C++ engine must remain responsible for the actual DSA implementation.
+
+For a four-hour hackathon, avoid unnecessary databases and authentication.
+
+Use in-memory operation state where necessary.
+
+The saved archive text must remain independent of the original tree object.
+
+---
+
+# 11. ERROR HANDLING AND VALIDATION
+
+Implement robust error handling.
+
+Test the following situations:
+
+1. Empty tree.
+2. Single-node tree.
+3. Left-only child.
+4. Right-only child.
+5. Both children present.
+6. Deeply skewed tree.
+7. Duplicate labels.
+8. Maximum supported node count.
+9. Empty archive.
+10. Missing archive tokens.
+11. Extra archive tokens.
+12. Invalid archive header.
+13. Invalid node token.
+14. Empty node label.
+15. Unsupported archive version.
+16. Malformed tree structure.
+17. Invalid frontend input.
+18. Backend unavailable.
+19. C++ execution failure.
+
+Duplicate labels must be supported because node identity is determined by structural position, not necessarily unique labels.
+
+Use proper validation before constructing the tree.
+
+If restoration fails, ensure no partial tree is exposed as a successful result.
+
+---
+
+# 12. COMPLEXITY ANALYSIS
+
+Display the algorithm complexity in the application.
+
+Let N represent the number of nodes and H represent the height of the tree.
+
+| Operation | Time Complexity |
+|---|---|
+| Serialization | O(N) |
+| Deserialization | O(N) |
+| Preorder Traversal | O(N) |
+| Inorder Traversal | O(N) |
+| Structural Equality | O(N) |
+| Node Count | O(N) |
+| Height Calculation | O(N) |
+| Leaf Count | O(N) |
+
+Explain:
+
+- Serialized archive space: O(N).
+- Tree storage: O(N).
+- Recursive auxiliary stack: O(H).
+
+Use clear explanations suitable for second-year engineering students.
+
+Do not make unsupported performance claims.
+
+---
+
+# 13. PROJECT STRUCTURE
+
+Create a clean, maintainable project structure.
+
+Suggested:
+
+TREEVAULT/
+|
+|-- frontend/
+|   |-- src/
+|       |-- components/
+|       |-- pages/
+|       |-- visualizations/
+|       |-- services/
+|       |-- hooks/
+|       |-- App.jsx
+|
+|-- backend/
+|   |-- routes/
+|   |-- controllers/
+|   |-- services/
+|   |-- server.js
+|
+|-- cpp-engine/
+|   |-- main.cpp
+|   |-- BinaryTree.h
+|   |-- BinaryTree.cpp
+|   |-- Serializer.h
+|   |-- Serializer.cpp
+|   |-- Validator.h
+|   |-- Validator.cpp
+|
+|-- tests/
+|
+|-- docs/
+|   |-- architecture.md
+|   |-- archive-format.md
+|   |-- dsa-explanation.md
+|   |-- api-documentation.md
+|
+|-- README.md
+
+You may modify this structure if necessary.
+
+Keep source code organized and avoid unnecessary files.
+
+---
+
+# 14. FOUR-HOUR HACKATHON DEVELOPMENT PRIORITIES
+
+The application must be completed within a strict four-hour hackathon.
+
+Prioritize implementation intelligently.
+
+PRIORITY 1 – ESSENTIAL:
+
+- Correct binary tree representation.
+- C++ serialization.
+- C++ deserialization.
+- Explicit null markers.
+- Archive format documentation.
+- Tree visualization.
+- Tree construction/import.
+- Tree restoration.
+- Preorder and inorder traversals.
+- Structural equality.
+- Damaged archive detection.
+- Round-trip demonstration.
+
+PRIORITY 2 – IMPORTANT:
+
+- Before/after comparison.
+- Download/upload archive.
+- Tree statistics.
+- Error reporting.
+- Responsive UI.
+
+PRIORITY 3 – OPTIONAL ENHANCEMENTS:
+
+- Step-by-step serialization animation.
+- Advanced visualization controls.
+- Additional traversal animations.
+- Extra sample trees.
+- Advanced styling.
+
+If time becomes limited, complete all PRIORITY 1 requirements before working on optional enhancements.
+
+Do not sacrifice correctness for visual effects.
+
+Avoid unnecessary features such as authentication, databases, complex deployment infrastructure or unrelated modules.
+
+Do not spend the entire development period planning.
+
+Move into implementation quickly.
+
+---
+
+# 15. TESTING AND QUALITY ASSURANCE
+
+Create automated tests for:
+
+A. NORMAL TREE
+
+Use the illustrative example.
+
+Verify:
+
+Preorder: A, B, D, C
+
+Inorder: B, D, A, C
+
+B. LEFT-ONLY TREE
+
+       A
+      /
+     B
+    /
+   C
+
+C. RIGHT-ONLY TREE
+
+A
+ 
+  B
+   
+    C
+
+D. MIXED TREE
+
+Test a tree containing different combinations of missing left and right children.
+
+E. SINGLE NODE
+
+A
+
+F. EMPTY TREE
+
+G. DUPLICATE LABELS
+
+H. DAMAGED ARCHIVE
+
+I. EXTRA TOKENS
+
+J. MAXIMUM NODE LIMIT
+
+For each test:
+
+- State the input.
+- State the expected result.
+- Execute the implementation.
+- Compare actual and expected results.
+- Report PASS or FAIL.
+
+Do not claim that tests passed unless they were actually executed.
+
+---
+
+# 16. CODE EXPLANATION AND JUDGES' PREPARATION
+
+THIS SECTION IS EXTREMELY IMPORTANT.
+
+We are second-year CSE students participating in a DSA hackathon.
+
+We must understand the code rather than simply submit AI-generated code.
+
+Write the implementation so that we can explain it confidently.
+
+For every important C++ function, provide:
+
+1. Function name.
+2. Purpose.
+3. Input parameters.
+4. Return value.
+5. Step-by-step working.
+6. DSA concept used.
+7. Time complexity.
+8. Space complexity.
+
+Explain the following concepts in simple language:
+
+- Binary Tree.
+- Root and child nodes.
+- Left and right subtrees.
+- Null pointers.
+- Preorder traversal.
+- Inorder traversal.
+- Serialization.
+- Deserialization.
+- Null markers.
+- Recursion.
+- Structural equality.
+- Memory management.
+
+Provide a complete walkthrough of the illustrative example.
+
+Explain exactly how:
+
+A, B, N, D, N, N, C, N, N
+
+reconstructs the original tree.
+
+Also explain why simply saving preorder node values without null markers is insufficient.
+
+Prepare at least 25 likely judges' questions with technically accurate answers.
+
+Include difficult questions such as:
+
+1. Why did you choose preorder traversal?
+2. Why are null markers necessary?
+3. Can inorder traversal alone reconstruct a binary tree?
+4. Why is structural equality necessary?
+5. What happens if a token is missing?
+6. How do you detect extra tokens?
+7. How do you prevent partial restoration?
+8. How do you handle duplicate node labels?
+9. How does the system support 2,000 nodes?
+10. What is the time complexity?
+11. What happens with a skewed tree?
+12. Why use C++?
+13. How does the frontend communicate with C++?
+14. How does the system guarantee lossless recovery?
+15. What happens if the archive is transferred to another computer?
+
+Prepare a 2–3 minute project presentation script.
+
+Also prepare a code walkthrough that can be delivered during judging.
+
+Never invent functionality that has not actually been implemented.
+
+---
+
+# 17. FINAL DOCUMENTATION
+
+Generate:
+
+1. Project overview.
+2. Problem statement explanation.
+3. Proposed solution.
+4. DSA selection justification.
+5. Algorithm explanations.
+6. Archive format documentation.
+7. System architecture.
+8. Technology stack.
+9. API documentation.
+10. Complexity analysis.
+11. Test cases and results.
+12. Known limitations.
+13. Setup and execution instructions.
+14. Judges' explanation guide.
+
+Include a complete README.md.
+
+---
+
+# 18. FINAL ACCEPTANCE CHECKLIST
+
+Before declaring the project complete, verify EVERY item below.
+
+[ ] Binary tree construction works.
+
+[ ] Tree import works.
+
+[ ] Original tree visualization works.
+
+[ ] Left and right relationships are preserved.
+
+[ ] Missing branches are preserved.
+
+[ ] C++ preorder serialization works.
+
+[ ] Archive format is documented.
+
+[ ] Archive export works.
+
+[ ] Archive download works.
+
+[ ] Archive upload works.
+
+[ ] C++ deserialization works.
+
+[ ] Restored tree visualization works.
+
+[ ] Preorder traversal is displayed.
+
+[ ] Inorder traversal is displayed.
+
+[ ] Structural equality is implemented.
+
+[ ] Before/after comparison works.
+
+[ ] Original tree can actually be destroyed.
+
+[ ] Restoration uses only saved archive text.
+
+[ ] Damaged archive is rejected.
+
+[ ] Meaningful errors are displayed.
+
+[ ] Round-trip tests are executed.
+
+[ ] Damaged-input tests are executed.
+
+[ ] C++ implementation supports the 2,000-node limit.
+
+[ ] Frontend communicates with the actual backend.
+
+[ ] Backend invokes the actual C++ engine.
+
+[ ] Code explanations are available.
+
+[ ] README and setup instructions are complete.
+
+Do not mark any item complete without verifying it.
+
+---
+
+# 19. EXECUTION INSTRUCTIONS TO THE AI AGENT
+
+Follow this development sequence:
+
+PHASE 1:
+Analyse the problem and finalize the DSA architecture.
+
+PHASE 2:
+Define the archive format and API contracts.
+
+PHASE 3:
+Implement and test the C++ DSA engine.
+
+PHASE 4:
+Develop the React frontend and tree visualization.
+
+PHASE 5:
+Develop the backend and connect it to C++.
+
+PHASE 6:
+Integrate all components.
+
+PHASE 7:
+Execute round-trip and damaged-input tests.
+
+PHASE 8:
+Polish the UI and improve the user experience.
+
+PHASE 9:
+Generate documentation and code explanations.
+
+PHASE 10:
+Prepare the final demonstration and judges' presentation.
+
+IMPORTANT DEVELOPMENT RULES:
+
+- Do not stop after providing an architecture or implementation plan.
+- Actually create and modify project files.
+- Do not deliver only pseudocode.
+- Do not create a static frontend with fake functionality.
+- Do not replace C++ DSA operations with JavaScript.
+- Do not use hardcoded traversal results.
+- Do not use hardcoded tree visualizations.
+- Do not silently ignore malformed input.
+- Do not claim testing succeeded without executing tests.
+- Do not introduce unnecessary dependencies.
+- Keep all components compatible.
+- Prioritize working functionality over excessive features.
+- Explain major implementation decisions.
+- If a requirement is technically difficult, find the simplest reliable implementation rather than silently omitting it.
+
+If operating in an existing project directory, inspect it first and preserve working files.
+
+If starting from scratch, initialize the complete project.
+
+Do not wait for unnecessary user confirmation between development phases.
+
+Make reasonable technical decisions independently.
+
+When a limitation or dependency prevents completion, clearly explain it and provide the best working alternative.
+
+---
+
+# FINAL OBJECTIVE
+
+Deliver a complete, professional and genuinely functional TREEVAULT web application.
+
+It must demonstrate that a binary tree can be:
+
+1. Constructed.
+2. Visualized.
+3. Serialized into a documented text format.
+4. Exported.
+5. Removed from memory.
+6. Restored from the saved text alone.
+7. Visually compared.
+8. Verified for exact structural equality.
+9. Tested against damaged archive data.
+
+The final product must satisfy the official problem statement, demonstrate genuine C++ DSA implementation, and be understandable enough for second-year engineering students to explain confidently to hackathon judges.
+
+BUILD THE APPLICATION NOW.
